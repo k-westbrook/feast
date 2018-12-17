@@ -62,6 +62,7 @@ router.get('/me', async (req, res, next) => {
 router.post('/addUser', async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
+    req.session.userId = newUser.id;
     res.json(newUser);
   } catch (err) {
 

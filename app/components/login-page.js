@@ -1,36 +1,47 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { login } from '../reducers/userReducer'
+import { login, getMe } from '../reducers/userReducer'
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
 import ConnectedSignUpForm from './signup-page'
 
-const LoginForm = (props) => {
-  const { handleSubmit } = props;
-  return (
-    <div className='log-div'>
-      <div>
-        <h2 className='login-header'>Login Page</h2>
-      </div>
-      <form className='login-form' onSubmit={handleSubmit}>
-        <div className='input-field'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' name='email' className='input' />
-        </div>
-        <div className='input-field'>
-          <label htmlFor='password'>Password</label>
-          <input type='password' name='password' className='input' />
-        </div>
-        <div>
-          <button className='submit-button' type='submit'>Login</button>
-        </div>
-      </form>
-      <div className='link-open'>
-        <Link to='/signup'>Don't have an account? Sign up today!</Link>
-        <Route path='/signup' component={ConnectedSignUpForm} />
-      </div>
-    </div>
+class LoginForm extends React.Component {
 
-  )
+  componentDidMount() {
+    this.props.getMe();
+
+
+  }
+
+
+
+  render() {
+    const handleSubmit = this.props.handleSubmit;
+    return (
+      <div className='log-div'>
+        <div>
+          <h2 className='login-header'>Login Page</h2>
+        </div>
+        <form className='login-form' onSubmit={handleSubmit}>
+          <div className='input-field'>
+            <label htmlFor='email'>Email</label>
+            <input type='email' name='email' className='input' />
+          </div>
+          <div className='input-field'>
+            <label htmlFor='password'>Password</label>
+            <input type='password' name='password' className='input' />
+          </div>
+          <div>
+            <button className='submit-button' type='submit'>Login</button>
+          </div>
+        </form>
+        <div className='link-open'>
+          <Link to='/signup'>Don't have an account? Sign up today!</Link>
+          <Route path='/signup' component={ConnectedSignUpForm} />
+        </div>
+      </div>
+
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -43,6 +54,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
       dispatch(login({ email, password })).then(() => {
 
+        history.push('/home');
+      })
+
+
+    },
+    getMe() {
+
+      dispatch(getMe()).then(() => {
         history.push('/home');
       })
 

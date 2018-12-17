@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addUser } from '../reducers/userReducer'
+import { addUser, getMe } from '../reducers/userReducer'
 import { Link, Redirect } from 'react-router-dom'
 
 
@@ -8,9 +8,8 @@ import { Link, Redirect } from 'react-router-dom'
 class SignUpForm extends React.Component {
 
   render() {
-    if (this.props.user.id) {
-      return <Redirect to='/home' />
-    }
+    this.props.getMe();
+
     return (
       <div className='log-div'>
         <h2 className='login-header'>Sign up!!</h2>
@@ -73,9 +72,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       })
 
 
-    }
+    },
 
+    getMe() {
+
+      dispatch(getMe()).then(() => {
+        history.push('/home');
+      })
+
+    }
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)

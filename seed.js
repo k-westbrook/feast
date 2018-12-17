@@ -1,4 +1,4 @@
-const { db, User } = require('./server/db')
+const { db, User, Event } = require('./server/db')
 
 const seed = async () => {
   try {
@@ -7,6 +7,12 @@ const seed = async () => {
       firstName: 'Cody',
       lastName: 'Pug',
       email: 'cody@email.com',
+      password: '12345',
+    })
+    await Event.create({
+      title: 'Potluck1',
+      admin: 1,
+      guests: [],
       password: '12345',
     })
     console.log(`

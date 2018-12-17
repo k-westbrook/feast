@@ -1,22 +1,21 @@
 'use strict'
 const User = require('./user')
+const Event = require('./event')
 const db = require('./database')
 
-// The purpose of this module is to bring your Sequelize instance (`db`) together
-// with your models (which you should define in separate modules in this directory).
-// Example:
-//
-// const Puppy = require('./puppy')
-// const Owner = require('./owner')
 
-// After you've required all of your models into this module, you should establish
-// associations (https://sequelize-guides.netlify.com/association-types/) between them here as well!
-// Example:
-//
-// Puppy.belongsTo(Owner)
+
+
+Event.hasMany(User);
+
+// User.belongsToMany(Event, { as: 'userId', through: 'UserEvent' });
+// Event.belongsToMany(User, { as: 'eventId', through: 'UserEvent' });
+// User.belongsToMany(Event, { as: 'Admin', through: 'AdminEvent' });
+
 
 module.exports = {
-  // Include your models in this exports object as well!
+
   db,
-  User
+  User,
+  Event
 }

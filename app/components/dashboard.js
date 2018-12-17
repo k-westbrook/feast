@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
 import { logout } from '../reducers/userReducer'
+import ConnectedMainDashboard from './main-dashboard'
 
 const Dashboard = (props) => {
   const { user, handleClick } = props
@@ -11,11 +13,15 @@ const Dashboard = (props) => {
   }
   return (
     <div >
-      <div >
-        <h1>Welcome back, {user.firstName}!</h1>
-      </div>
+      <Router>
+        <Switch>
+          <main>
+            <Route component={ConnectedMainDashboard} />
+          </main>
+        </Switch>
+      </Router>
       <div>
-        <button type='submit' onClick={handleClick}>Logout</button>
+        <button className='submit-button' type='submit' onClick={handleClick}>Logout</button>
       </div>
     </div>
   )
