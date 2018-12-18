@@ -6,11 +6,13 @@ const { Event, User, db } = require('../db');
 router.get('/:userId/events', async (req, res, next) => {
   try {
     const userIdRequested = req.params.userId;
-    const userOne = await User.findById(userIdRequested);
-    console.log(await User.findAll({ include: [{ model: Event }] }), "EVENTS");
+    const userFound = await User.findById(
+      userIdRequested,
+      { include: [{ model: Event }] }
+    )
+    const allEvents = await userFound.getEvents();
 
-
-    res.json(1);
+    res.json(allEvents);
 
   } catch (err) {
 
@@ -65,7 +67,23 @@ router.get('/guests/:eventId', async (req, res, next) => {
 })
 
 
+//ADD EVENT REQUEST
 
+router.post('/:userId/createEvent', async (req, res, next) => {
+  try {
+    const reqBody = req.body;
+    const userIdRequested = req.params.userId;
+    const userFound = await User.findById(userIdRequested);
+    const eventAdded = await Event.create({ title: reqBody.title, password: reqBody.password, admin: userIdRequested })
 
+    await eventAdded.addUser(userFound);
+    res.json(eventAdded);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 
 module.exports = router;

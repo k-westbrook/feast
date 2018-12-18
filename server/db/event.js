@@ -14,10 +14,6 @@ const Event = db.define('event', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  guests: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
-    defaultValue: [this.admin]
   }
 })
 

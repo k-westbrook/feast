@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
 import { logout } from '../reducers/userReducer'
 import ConnectedMainDashboard from './main-dashboard'
+import ConnectedCreateEvent from './create-events/create-event.js'
 
 const Dashboard = (props) => {
   const { user, handleClick } = props
@@ -16,7 +17,8 @@ const Dashboard = (props) => {
       <Router>
         <Switch>
           <main>
-            <Route component={ConnectedMainDashboard} />
+            <Route path='/home' component={ConnectedMainDashboard} />
+            <Route path='/createEvent' component={ConnectedCreateEvent} />
           </main>
         </Switch>
       </Router>
