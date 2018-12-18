@@ -1,31 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getEvent, getGuests } from '../reducers/eventReducer'
+import { getEvent, getGuests, getEvents } from '../reducers/eventReducer'
 
 class MainDashboard extends React.Component {
 
   componentDidMount() {
     this.props.getEvent(1);
     this.props.getGuests(1);
+    this.props.getEvents(this.props.user.id);
   }
 
   render() {
 
-    const { user, event, guests } = this.props
-    console.log('hello', guests)
+    const { user, event, guests, events } = this.props
+    console.log("EVENTS", events)
     return (
       <div >
         <div >
-          <h1>{user.firstName}'s Dashboard</h1>
+          <h1>{user.firstName}'s Dashboard. Welcome All!</h1>
         </div>
         <div>
           <h2>Events</h2>
           <h2>{event.title}</h2>
           <ul>
-            {guests.map(guest => {
+            {events.map(event => {
               return (
-                <li key={guest.id}>
-                  {guest.firstName} {guest.lastName}
+                <li key={event.id}>
+                  {event.title}
                 </li>
               )
             })}
@@ -38,11 +39,12 @@ class MainDashboard extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.event)
+
   return {
     user: state.user.selectedUser,
     event: state.event.selectedEvent,
-    guests: state.event.guests
+    guests: state.event.guests,
+    events: state.event.events
   }
 }
 
@@ -58,6 +60,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getGuests(eventId) {
 
       dispatch(getGuests(eventId));
+    },
+    getEvents(userId) {
+      dispatch(getEvents(userId))
     }
   }
 }

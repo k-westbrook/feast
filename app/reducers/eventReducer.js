@@ -2,11 +2,18 @@ import axios from 'axios'
 
 
 //ACTION TYPE
+const GET_EVENTS_FROM_SERVER = "GET_USERS_EVENT_FROM_SERVER";
 const GET_EVENT_FROM_SERVER = "GET_EVENT_FROM_SERVER";
 const GET_GUESTS_FROM_SERVER = "GET_GUESTS_FROM_SERVER";
 
 
 //ACTION CREATOR
+const getAllEventsForUser = (events) => ({
+
+  type: GET_EVENTS_FROM_SERVER,
+  events
+})
+
 const getEventFromServer = (event) => ({
 
   type: GET_EVENT_FROM_SERVER,
@@ -21,11 +28,21 @@ const getGuestsFromServer = (guests) => ({
 //INITIAL STATE
 const initialState = {
   selectedEvent: {},
-  guests: []
+  guests: [],
+  events: []
 }
 
 
 //THUNK CREATORS
+
+export const getEvents = (userId) => {
+  return async (dispatch) => {
+
+    const res = await axios.get(`/api/events//${userId}/events`);
+    const data = res.data;
+    dispatch(getAllEventsForUser(data));
+  }
+}
 
 export const getEvent = (eventId) => {
   return async (dispatch) => {
@@ -35,6 +52,8 @@ export const getEvent = (eventId) => {
     dispatch(getEventFromServer(data));
   }
 }
+
+
 
 export const getGuests = (eventId) => {
   return async (dispatch) => {
@@ -54,6 +73,8 @@ const eventReducer = (state = initialState, action) => {
       return { ...state, selectedEvent: action.event }
     case GET_GUESTS_FROM_SERVER:
       return { ...state, guests: action.guests }
+    case GET_EVENTS_FROM_SERVER:
+      return { ...state, events: action.events }
     default:
       return state
   }
