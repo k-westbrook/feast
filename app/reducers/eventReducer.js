@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getMe } from './userReducer';
 
 
 //ACTION TYPE
@@ -6,6 +7,7 @@ const GET_EVENTS_FROM_SERVER = "GET_USERS_EVENT_FROM_SERVER";
 const GET_EVENT_FROM_SERVER = "GET_EVENT_FROM_SERVER";
 const GET_GUESTS_FROM_SERVER = "GET_GUESTS_FROM_SERVER";
 const ADD_EVENT = "ADD_EVENT";
+const ADD_GUEST = "ADD_GUEST";
 
 //ACTION CREATOR
 const getAllEventsForUser = (events) => ({
@@ -32,6 +34,11 @@ const addedEventFromServer = (event) => ({
 
 })
 
+const addedGuestFromServer = (guest) => ({
+  type: ADD_GUEST,
+  guest
+})
+
 //INITIAL STATE
 const initialState = {
   selectedEvent: {},
@@ -51,10 +58,10 @@ export const getEvents = (userId) => {
   }
 }
 
-export const addEvent = (event, userId) => {
+export const addEvent = (event) => {
   return async (dispatch) => {
 
-    const res = await axios.post(`/api/events/${userId}/createEvent`, event);
+    const res = await axios.post(`/api/events/createEvent`, event);
     const data = res.data;
     dispatch(addedEventFromServer(data));
   }
@@ -76,11 +83,22 @@ export const getGuests = (eventId) => {
   return async (dispatch) => {
 
     const res = await axios.get(`/api/events/guests/${eventId}`);
-    const data = res.data.users;
-
+    const data = res.data;
+    console.log("REDUCER", data)
     dispatch(getGuestsFromServer(data));
   }
 }
+
+export const addGuest = (guest) => {
+  return async (dispatch) => {
+
+    const res = await axios.put(`/api/events/addGuest`, guest);
+    const data = res.data;
+    console.log("REDUCER", data)
+    dispatch(addGuest(data));
+  }
+}
+
 
 
 
@@ -91,9 +109,11 @@ const eventReducer = (state = initialState, action) => {
     case GET_GUESTS_FROM_SERVER:
       return { ...state, guests: action.guests }
     case GET_EVENTS_FROM_SERVER:
-      return { ...state, events: action.events }
+      return { ...state, events: action.events, selectedEvent: {} }
     case ADD_EVENT:
       return { ...state, events: [...state.events, action.event] }
+    case ADD_GUEST:
+      return { ...state, guests: [...state.guests, action.guest] }
     default:
       return state
   }

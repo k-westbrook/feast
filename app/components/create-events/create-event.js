@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addEvent } from '../../reducers/eventReducer'
+import { getMe } from '../../reducers/userReducer'
 import { Link } from 'react-router-dom'
 
 
@@ -10,6 +11,7 @@ class CreateEvent extends React.Component {
 
 
   render() {
+
     const handleSubmit = this.props.handleSubmit;
     return (
       <div className='create-div'>
@@ -45,25 +47,36 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-  const history = ownProps.history
-  console.log(ownProps.id, "STATE");
+  const history = ownProps.history;
+
   return {
     handleSubmit(evt) {
       evt.preventDefault()
       const title = evt.target.title.value;
       const password = evt.target.password.value;
 
-
       dispatch(addEvent({ title, password })).then(() => {
         history.push('/home');
       })
 
 
+    },
+    getMe() {
+
+      dispatch(getMe());
     }
 
 
   }
 }
+
+
+
+
+
+
+
+
 const ConnectedCreateEvent = connect(mapStateToProps, mapDispatchToProps)(CreateEvent)
 
 export default ConnectedCreateEvent

@@ -49,13 +49,13 @@ router.get('/guests/:eventId', async (req, res, next) => {
   try {
     const eventIdRequested = req.params.eventId;
 
-    const foundGuests = await Event.findOne({
+    const foundEvent = await Event.findOne({
       where: {
         id: eventIdRequested
       },
       include: [{ model: User }]
     })
-
+    const foundGuests = await foundEvent.getUsers();
 
     res.json(foundGuests);
 
@@ -69,12 +69,12 @@ router.get('/guests/:eventId', async (req, res, next) => {
 
 //ADD EVENT REQUEST
 
-router.post('/:userId/createEvent', async (req, res, next) => {
+router.post('/createEvent', async (req, res, next) => {
   try {
     const reqBody = req.body;
-    const userIdRequested = req.params.userId;
-    const userFound = await User.findById(userIdRequested);
-    const eventAdded = await Event.create({ title: reqBody.title, password: reqBody.password, admin: userIdRequested })
+    const userId = req.session.userId;
+    const userFound = await User.findById(userId);
+    const eventAdded = await Event.create({ title: reqBody.title, password: reqBody.password, admin: userId })
 
     await eventAdded.addUser(userFound);
     res.json(eventAdded);
@@ -84,6 +84,27 @@ router.post('/:userId/createEvent', async (req, res, next) => {
     next(err);
   }
 
+})
+
+//need to get event id to make instance and then add guest to that instance
+router.put('/addGuest', async (req, res, next) => {
+  try {
+    const reqBody = req.body;
+
+    const userFound = await User.findOne({
+      where: {
+        email: reqBody.email
+      }
+    });
+
+
+    await Event.addUser(userFound);
+    res.json(userFound);
+
+  } catch (err) {
+
+    next(err);
+  }
 })
 
 module.exports = router;
