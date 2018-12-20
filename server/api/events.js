@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Event, User, db } = require('../db');
+const { Event, User, db, Item } = require('../db');
 
 
 //GET REQUESTS FOR EVENTS FOR A PARTICULAR USER
@@ -42,6 +42,27 @@ router.get('/:eventId', async (req, res, next) => {
 
 })
 
+//GET REQUEST FOR A PARTICULAR EVENT's ITEM LIST
+//GET REQUEST FOR PATICULAR EVENT
+router.get('/items/:eventId', async (req, res, next) => {
+  try {
+    const eventIdRequested = req.params.eventId;
+    const foundItems = await Item.findAll({
+      where: {
+        eventId: eventIdRequested
+      },
+      include: [{ model: User }]
+    })
+
+
+    res.json(foundItems);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 
 
 //GET REQUESTS FOR USERS AT PARTICULAR EVENT
@@ -73,6 +94,7 @@ router.post('/createEvent', async (req, res, next) => {
   try {
     const reqBody = req.body;
     const userId = req.session.userId;
+
     const userFound = await User.findById(userId);
     const eventAdded = await Event.create({ title: reqBody.title, password: reqBody.password, admin: userId })
 
@@ -86,19 +108,22 @@ router.post('/createEvent', async (req, res, next) => {
 
 })
 
-//need to get event id to make instance and then add guest to that instance
-router.put('/addGuest', async (req, res, next) => {
+//PUT ADD GUEST TO A PARTICUALR EVENT
+router.put('/addGuest/:eventId', async (req, res, next) => {
   try {
     const reqBody = req.body;
-
+    const eventId = req.params.eventId;
+    console.log(reqBody, "BODY")
     const userFound = await User.findOne({
       where: {
         email: reqBody.email
       }
     });
 
+    const eventFound = await Event.findById(eventId)
 
-    await Event.addUser(userFound);
+    await eventFound.addUser(userFound);
+
     res.json(userFound);
 
   } catch (err) {
@@ -107,4 +132,29 @@ router.put('/addGuest', async (req, res, next) => {
   }
 })
 
+
+//POST TO PLACE AN ITEM WITH A PARTICULAR GUEST AND EVENT
+router.post('/addItem/:eventId', async (req, res, next) => {
+  try {
+    const reqBody = req.body;
+    const userId = req.session.userId;
+
+
+    const itemAdded = await Item.create(
+      {
+        name: reqBody.name,
+        quantity: reqBody.quantity,
+        userId: userId,
+        eventId: req.params.eventId
+      })
+
+
+    res.json(itemAdded);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 module.exports = router;

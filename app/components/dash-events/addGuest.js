@@ -57,12 +57,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
+      console.log('hi')
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
+      const eventId = ownProps.match.params.eventId;
 
-      dispatch(addGuest({ firstName, lastName, email })).then(() => {
-        history.push(`/event/${this.props.match.params.eventId}`);
+      dispatch(addGuest({ firstName, lastName, email }, eventId)).then(() => {
+        history.push(`/event/${eventId}`);
       })
 
 
@@ -75,13 +77,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   }
 }
-
-
-
-
-
-
-
 
 const ConnectedAddGuest = connect(mapStateToProps, mapDispatchToProps)(AddGuest)
 

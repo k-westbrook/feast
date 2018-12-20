@@ -6,8 +6,10 @@ import { getMe } from './userReducer';
 const GET_EVENTS_FROM_SERVER = "GET_USERS_EVENT_FROM_SERVER";
 const GET_EVENT_FROM_SERVER = "GET_EVENT_FROM_SERVER";
 const GET_GUESTS_FROM_SERVER = "GET_GUESTS_FROM_SERVER";
+const GET_ITEMS_FROM_SERVER = "GET_ITEMS_FROM_SERVER";
 const ADD_EVENT = "ADD_EVENT";
 const ADD_GUEST = "ADD_GUEST";
+const ADD_ITEM = "ADD_ITEM"
 
 //ACTION CREATOR
 const getAllEventsForUser = (events) => ({
@@ -26,7 +28,11 @@ const getGuestsFromServer = (guests) => ({
   type: GET_GUESTS_FROM_SERVER,
   guests
 })
+const getItemsFromServer = (items) => ({
 
+  type: GET_ITEMS_FROM_SERVER,
+  items
+})
 const addedEventFromServer = (event) => ({
 
   type: ADD_EVENT,
@@ -39,11 +45,17 @@ const addedGuestFromServer = (guest) => ({
   guest
 })
 
+const addedItemFromServer = (item) => ({
+  type: ADD_ITEM,
+  item
+})
+
 //INITIAL STATE
 const initialState = {
   selectedEvent: {},
   guests: [],
-  events: []
+  events: [],
+  items: []
 }
 
 
@@ -84,22 +96,39 @@ export const getGuests = (eventId) => {
 
     const res = await axios.get(`/api/events/guests/${eventId}`);
     const data = res.data;
-    console.log("REDUCER", data)
+
     dispatch(getGuestsFromServer(data));
   }
 }
 
-export const addGuest = (guest) => {
+export const getItems = (eventId) => {
   return async (dispatch) => {
 
-    const res = await axios.put(`/api/events/addGuest`, guest);
+    const res = await axios.get(`/api/events/items/${eventId}`);
     const data = res.data;
-    console.log("REDUCER", data)
-    dispatch(addGuest(data));
+    console.log(data, "REDUCER")
+    dispatch(getItemsFromServer(data));
+  }
+}
+
+export const addGuest = (guest, eventId) => {
+  return async (dispatch) => {
+
+    const res = await axios.put(`/api/events/addGuest/${eventId}`, guest);
+    const data = res.data;
+    dispatch(addedGuestFromServer(data));
   }
 }
 
 
+export const addItem = (item, eventId) => {
+  return async (dispatch) => {
+
+    const res = await axios.post(`/api/events/addItem/${eventId}`, item);
+    const data = res.data;
+    dispatch(addedItemFromServer(data));
+  }
+}
 
 
 const eventReducer = (state = initialState, action) => {
@@ -110,10 +139,14 @@ const eventReducer = (state = initialState, action) => {
       return { ...state, guests: action.guests }
     case GET_EVENTS_FROM_SERVER:
       return { ...state, events: action.events, selectedEvent: {} }
+    case GET_ITEMS_FROM_SERVER:
+      return { ...state, items: action.items }
     case ADD_EVENT:
       return { ...state, events: [...state.events, action.event] }
     case ADD_GUEST:
       return { ...state, guests: [...state.guests, action.guest] }
+    case ADD_ITEM:
+      return { ...state, items: [...state.items, action.item] }
     default:
       return state
   }

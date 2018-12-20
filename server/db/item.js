@@ -1,20 +1,16 @@
 const Sequelize = require('sequelize')
 const db = require('./database');
 
-const Event = db.define('event', {
+const Item = db.define('item', {
 
-  title: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  admin: {
+  quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  password: {
-    type: Sequelize.STRING,
     allowNull: false
   }
 })
 
-module.exports = Event;
+module.exports = Item;

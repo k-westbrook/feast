@@ -2,13 +2,17 @@
 const User = require('./user')
 const Event = require('./event')
 const db = require('./database')
+const Item = require('./item')
 
 
 User.belongsToMany(Event, { through: 'UserEvent' });
 Event.belongsToMany(User, { through: 'UserEvent' });
 
-// User.belongsToMany(Event, { as: 'users', through: 'UserEvent', foreignKey: 'userId' });
-// Event.belongsToMany(User, { as: 'events', through: 'UserEvent', foreignKey: 'eventId' });
+Item.belongsTo(User);
+User.hasMany(Item);
+
+Event.hasMany(Item);
+Item.belongsTo(Event);
 
 
 
@@ -16,5 +20,6 @@ module.exports = {
 
   db,
   User,
-  Event
+  Event,
+  Item
 }

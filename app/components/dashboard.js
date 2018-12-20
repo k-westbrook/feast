@@ -7,6 +7,7 @@ import ConnectedMainDashboard from './main-dashboard'
 import ConnectedCreateEvent from './create-events/create-event.js'
 import ConnectedSingleEventView from './dash-events/singleEvent';
 import ConnecteAddGuest from './dash-events/addGuest'
+import ConnecteAddItem from './dash-events/addItem'
 
 const Dashboard = (props) => {
   const { user, handleClick } = props
@@ -22,7 +23,8 @@ const Dashboard = (props) => {
             <Route path='/home' render={(routeProps) => <ConnectedMainDashboard {...routeProps} />} />
             <Route path='/createEvent' render={(routeProps) => <ConnectedCreateEvent {...routeProps} />} />
             <Route exact path='/event/:eventId' render={(routeProps) => <ConnectedSingleEventView {...routeProps} />} />
-            <Route path='/event/addGuest' render={(routeProps) => <ConnecteAddGuest {...routeProps} />} />
+            <Route path='/event/addGuest/:eventId' render={(routeProps) => <ConnecteAddGuest {...routeProps} />} />
+            <Route path='/event/addItem/:eventId' render={(routeProps) => <ConnecteAddItem {...routeProps} />} />
           </main>
         </Switch>
       </Router>

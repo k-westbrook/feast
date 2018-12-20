@@ -4,6 +4,7 @@ import axios from 'axios'
 //ACTION TYPE
 const GET_LOGGED_IN_USER_FROM_SERVER = "GET_LOGGED_IN_USER_FROM_SERVER";
 const ADD_USER_TO_SERVER = "ADD_USER_TO_SERVER";
+const GET_ITEMS_FROM_SERVER = 'GET_ITEMS_FROM_SERVER'
 
 
 //ACTION CREATOR
@@ -17,10 +18,16 @@ const addUserToServer = (user) => ({
   type: ADD_USER_TO_SERVER,
   user
 })
+const getItemsFromServer = (items) => ({
+
+  type: GET_ITEMS_FROM_SERVER,
+  items
+})
 
 //INITIAL STATE
 const initialState = {
-  selectedUser: {}
+  selectedUser: {},
+  items: []
 }
 
 
@@ -62,6 +69,14 @@ export const addUser = (user) => {
   }
 }
 
+export const getItemsForUser = (userId) => {
+  return async (dispatch) => {
+
+    const res = await axios.get(`/api/users/${userId}/items`);
+    const data = res.data;
+    dispatch(getItemsFromServer(data));
+  }
+}
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -69,6 +84,8 @@ const userReducer = (state = initialState, action) => {
       return { ...state, selectedUser: action.user }
     case ADD_USER_TO_SERVER:
       return { ...state, selectedUser: action.user }
+    case GET_ITEMS_FROM_SERVER:
+      return { ...state, items: action.items }
 
     default:
       return state
