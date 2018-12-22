@@ -25,15 +25,23 @@ class SingleEventView extends React.Component {
   }
   render() {
 
-    if (!containsUser(this.props.guests, this.props.user) && this.state.load) {
+    if (!containsUser(this.props.guests, this.props.user)) {
       return (
         <div>
-          <div>
-            <h2>You are not invited to this feast.</h2>
-          </div>
-          <div className='link-open'>
-            <Link to='/home'>Back to My Dashboard</Link>
-          </div>
+          {(this.state.load) ?
+            <div>
+              <div>
+                <h2>You are not invited to this feast.</h2>
+              </div>
+              <div className='link-open'>
+                <Link to='/home'>Back to My Dashboard</Link>
+              </div>
+            </div>
+            :
+            <div>
+              <h2></h2>
+            </div>
+          }
         </div>
 
       )
@@ -42,7 +50,7 @@ class SingleEventView extends React.Component {
     return (
       <div>
         {(this.state.load) ?
-          <div>
+          <div class='single-event-view'>
             <h1>{this.props.event.title}</h1>
             <div>
               <h2>Guests Attending</h2>

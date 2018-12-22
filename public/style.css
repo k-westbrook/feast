@@ -6,10 +6,11 @@
 * {
   box-sizing: border-box;
   font-family: arial, sans-serif;
+  color:white
 }
 
 body {
-  background: linear-gradient(#ffffff, #c0c0c0);
+  background: linear-gradient(#ffffff, black);
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -18,12 +19,28 @@ body {
 
 nav {
   align-items: center;
-  background-color: #333333;
+  background-color: black;
   color: #c0c0c0;
   display: flex;
   height: 80px;
   padding: 10px;
 }
+.nav-name{
+  font-size: 2rem;
+  padding: 1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.login-name{
+  font-size: 3em;
+  padding-left: 35vh;
+  padding-right: 35vh;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border-style: groove;
+  border-width: 1vh;
+  border-color: white;
+
+}
+
 
 main {
   align-items: center;
@@ -33,25 +50,35 @@ main {
 }
 
 .log-div{
+  background-color: black;
+  padding: 5vh;
+  margin:3vh;
 
+}
+.create-div{
+  background-color: black;
   padding: 10vh;
+  margin:5vh;
 }
 
 .input{
   margin-left: 1vh;
   height:3vh;
   width: 40vh;
+  color: black;
 }
 .input-field{
 
   margin-top: 2vh;
   margin-bottom: 2vh;
+
 }
 
 .submit-button{
 
   height:3.5vh;
-  width: 8vh;
+  width: 12vh;
+  color: black;
 }
 
 .login-header{
@@ -60,4 +87,25 @@ main {
 
 .link-open{
   margin-top: 3vh;
+  color: white;
+}
+
+.main-dashboard{
+  color:white;
+  background-color: black;
+  padding: 10vh;
+  margin:5vh;
+}
+.single-event-view{
+  color:white;
+  background-color: black;
+  padding: 10vh;
+  margin:5vh;
+}
+
+.user-name-dashboard{
+  border-bottom-style: groove;
+  border-width: 1vh;
+  border-color: white;
+
 }

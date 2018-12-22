@@ -1,5 +1,5 @@
 import React from 'react'
-import BroughtItem from './BroughtItem'
+import IndividualBroughtItem from './IndividualBroughtItem'
 
 
 const UserItemList = (props) => {
@@ -10,7 +10,7 @@ const UserItemList = (props) => {
 
         return (
           <li key={item.id}>
-            <BroughtItem item={item} />
+            <IndividualBroughtItem item={item} />
           </li>
         )
       })}

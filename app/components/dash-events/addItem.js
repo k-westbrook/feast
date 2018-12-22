@@ -7,16 +7,16 @@ import { Link } from 'react-router-dom'
 
 
 
-const AddItem = () => {
+const AddItem = (props) => {
 
 
 
 
-  const handleSubmit = this.props.handleSubmit;
+  const handleSubmit = props.handleSubmit;
   return (
 
-    <div>
-      <form className='login-form' onSubmit={this.props.handleSubmit}>
+    <div className='create-div'>
+      <form className='login-form' onSubmit={handleSubmit}>
         <div>
           <div className='input-field'>
             <label htmlFor='name'>Name of Item</label>

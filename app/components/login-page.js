@@ -18,6 +18,7 @@ class LoginForm extends React.Component {
     const handleSubmit = this.props.handleSubmit;
     return (
       <div className='log-div'>
+        <h2 className='login-name'> Feast</h2>
         <div>
           <h2 className='login-header'>Login Page</h2>
         </div>
@@ -38,7 +39,7 @@ class LoginForm extends React.Component {
           <Link to='/signup'>Don't have an account? Sign up today!</Link>
           <Route path='/signup' component={ConnectedSignUpForm} />
         </div>
-      </div>
+      </div >
 
     )
   }

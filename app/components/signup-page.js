@@ -12,6 +12,7 @@ class SignUpForm extends React.Component {
 
     return (
       <div className='log-div'>
+        <h2 className='login-name'> Feast</h2>
         <h2 className='login-header'>Sign up!!</h2>
         <div>
 

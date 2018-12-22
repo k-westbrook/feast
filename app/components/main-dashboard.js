@@ -29,9 +29,10 @@ class MainDashboard extends React.Component {
     return (
       <div >
         {this.state.load ?
-          <div>
-            <div >
-              <h1>{user.firstName}'s Dashboard. Welcome All!</h1>
+          <div className='main-dashboard' >
+            <h2 className='login-name'> Feast</h2>
+            <div>
+              <h1 className='user-name-dashboard'>{user.firstName}'s Dashboard.</h1>
             </div>
             <div>
               <h2>Events</h2>

@@ -18,7 +18,9 @@ const Root = () => {
   return (
     <div>
       <nav>
-        Feast
+        <div className='nav-name'>
+          Feast
+        </div>
       </nav>
       <Router>
         <Switch>
