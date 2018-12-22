@@ -3,31 +3,40 @@ import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-
 import { ConnectedLoginForm } from './login-page'
 import ConnectedDashboard from './dashboard'
 import ConnectedSignUpForm from './signup-page'
+import ConnectedCreateEvent from './create-events/create-event.js'
+import ConnectedSingleEventView from './dash-events/singleEvent';
+import ConnecteAddGuest from './dash-events/addGuest'
+import ConnecteAddItem from './dash-events/addItem'
+import NotFound from './extra-page/notFound';
+
+
+const Root = () => {
 
 
 
-class Root extends React.Component {
 
-
-
-  render() {
-    return (
-      <div>
-        <nav>
-          Feast
+  return (
+    <div>
+      <nav>
+        Feast
       </nav>
-        <Router>
-          <Switch>
-            <main>
-              <Route exact path='/' component={ConnectedLoginForm} />
-              <Route path='/home' component={ConnectedDashboard} />
-              <Route path='/signup' component={ConnectedSignUpForm} />
-            </main>
-          </Switch>
-        </Router>
-      </div>
-    )
-  }
+      <Router>
+        <Switch>
+          <main>
+            <Route exact path='/' component={ConnectedLoginForm} />
+            <Route exact path='/home' component={ConnectedDashboard} />
+            <Route exact path='/signup' component={ConnectedSignUpForm} />
+            <Route exact path='/createEvent' render={(routeProps) => <ConnectedCreateEvent {...routeProps} />} />
+            <Route exact path='/event/:eventId' render={(routeProps) => <ConnectedSingleEventView {...routeProps} />} />
+            <Route exact path='/event/addGuest/:eventId' render={(routeProps) => <ConnecteAddGuest {...routeProps} />} />
+            <Route exact path='/event/addItem/:eventId' render={(routeProps) => <ConnecteAddItem {...routeProps} />} />
+
+          </main>
+        </Switch>
+      </Router>
+    </div>
+  )
+
 }
 
 

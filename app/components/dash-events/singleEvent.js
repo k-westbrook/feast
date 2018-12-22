@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getEvent, getGuests, getItems } from '../../reducers/eventReducer'
-import { Link } from 'react-router-dom'
+import { getMe } from '../../reducers/userReducer'
+import { Link, Redirect } from 'react-router-dom'
 import GuestItem from './guestItem'
 import BroughtItem from './BroughtItem'
 
@@ -18,11 +19,26 @@ class SingleEventView extends React.Component {
 
     this.props.getEvent(this.props.match.params.eventId);
     this.props.getGuests(this.props.match.params.eventId);
-    this.props.getItems(this.props.match.params.eventId)
+    this.props.getItems(this.props.match.params.eventId);
+    this.props.getMe();
     this.setState({ load: true });
   }
   render() {
-    console.log('THE PROPS', this.props.items[0])
+
+    if (!containsUser(this.props.guests, this.props.user) && this.state.load) {
+      return (
+        <div>
+          <div>
+            <h2>You are not invited to this feast.</h2>
+          </div>
+          <div className='link-open'>
+            <Link to='/home'>Back to My Dashboard</Link>
+          </div>
+        </div>
+
+      )
+    }
+
     return (
       <div>
         {(this.state.load) ?
@@ -49,11 +65,11 @@ class SingleEventView extends React.Component {
               }
             </div>
             <div>
-              <Link to={{ pathname: `/event/addGuest/${this.props.event.id}`, query: { id: event.id } }} key={event.id} >
+              <Link to={{ pathname: `/event/addGuest/${this.props.event.id}`, query: { id: this.props.event.id } }} key={this.props.event.id} >
                 <h3>Add a Guest</h3>
               </Link>
               <div>
-                <Link to={{ pathname: `/event/addItem/${this.props.event.id}`, query: { id: event.id } }} key={event.id} >
+                <Link to={{ pathname: `/event/addItem/${this.props.event.id}`, query: { id: this.props.event.id } }} key={this.props.event.id} >
                   <h3>Bring Something</h3>
                 </Link>
               </div>
@@ -102,6 +118,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(getMe());
     }
   }
+}
+
+const containsUser = (listOfGuests, selectedUser) => {
+
+  for (let i = 0; i < listOfGuests.length; i++) {
+    if (listOfGuests[i].id === selectedUser.id) {
+      return true;
+    }
+  }
+  return false;
+
 }
 
 const ConnectedSingleEventView = connect(mapStateToProps, mapDispatchToProps)(SingleEventView)

@@ -7,38 +7,35 @@ import { Link } from 'react-router-dom'
 
 
 
-class AddGuest extends React.Component {
+const AddGuest = () => {
+
+  const handleSubmit = this.props.handleSubmit;
+  return (
 
 
-  render() {
-
-    const handleSubmit = this.props.handleSubmit;
-    return (
-
-
-      <form className='login-form' onSubmit={this.props.handleSubmit}>
-        <div>
-          <div className='input-field'>
-            <label htmlFor='firstName'>First Name</label>
-            <input type='firstName' name='firstName' className='input' />
-          </div>
-          <div className='input-field'>
-            <label htmlFor='lastName'>Last Name</label>
-            <input type='lastName' name='lastName' className='input' />
-          </div>
-          <div className='input-field'>
-            <label htmlFor='email'>Email</label>
-            <input type='email' name='email' className='input' />
-          </div>
-          <button className='submit-button' type='submit'>Sign Up</button>
+    <form className='login-form' onSubmit={this.props.handleSubmit}>
+      <div>
+        <div className='input-field'>
+          <label htmlFor='firstName'>First Name</label>
+          <input type='firstName' name='firstName' className='input' />
         </div>
+        <div className='input-field'>
+          <label htmlFor='lastName'>Last Name</label>
+          <input type='lastName' name='lastName' className='input' />
+        </div>
+        <div className='input-field'>
+          <label htmlFor='email'>Email</label>
+          <input type='email' name='email' className='input' />
+        </div>
+        <button className='submit-button' type='submit'>Sign Up</button>
+      </div>
 
-      </form>
+    </form>
 
 
-    )
+  )
 
-  }
+
 }
 
 const mapStateToProps = (state, ownProps) => {

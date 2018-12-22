@@ -7,36 +7,36 @@ import { Link } from 'react-router-dom'
 
 
 
-class AddItem extends React.Component {
+const AddItem = () => {
 
 
-  render() {
 
-    const handleSubmit = this.props.handleSubmit;
-    return (
 
-      <div>
-        <form className='login-form' onSubmit={this.props.handleSubmit}>
-          <div>
-            <div className='input-field'>
-              <label htmlFor='name'>Name of Item</label>
-              <input type='name' name='name' className='input' />
-            </div>
-            <div className='input-field'>
-              <label htmlFor='quantity'>quantity</label>
-              <input type='quantity' name='quantity' className='input' />
-            </div>
+  const handleSubmit = this.props.handleSubmit;
+  return (
 
+    <div>
+      <form className='login-form' onSubmit={this.props.handleSubmit}>
+        <div>
+          <div className='input-field'>
+            <label htmlFor='name'>Name of Item</label>
+            <input type='name' name='name' className='input' />
           </div>
-          <div>
-            <button className='submit-button' type='submit'>Sign Up</button>
+          <div className='input-field'>
+            <label htmlFor='quantity'>quantity</label>
+            <input type='quantity' name='quantity' className='input' />
           </div>
-        </form>
 
-      </div>
-    )
+        </div>
+        <div>
+          <button className='submit-button' type='submit'>Sign Up</button>
+        </div>
+      </form>
 
-  }
+    </div>
+  )
+
+
 }
 
 const mapStateToProps = (state, ownProps) => {

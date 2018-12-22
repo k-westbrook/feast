@@ -7,37 +7,36 @@ import { Link } from 'react-router-dom'
 
 
 
-class CreateEvent extends React.Component {
+const CreateEvent = (props) => {
 
 
-  render() {
 
-    const handleSubmit = this.props.handleSubmit;
-    return (
-      <div className='create-div'>
-        <div>
-          <h2 className='create-header'>Create an Event</h2>
-        </div>
-        <form className='create-form' onSubmit={handleSubmit}>
-          <div className='create-field'>
-            <label htmlFor='title'>Event Name</label>
-            <input type='title' name='title' className='input' />
-          </div>
-          <div className='input-field'>
-            <label htmlFor='password'>Password</label>
-            <input type='password' name='password' className='input' />
-          </div>
-          <div>
-            <button className='submit-button' type='submit'>Create</button>
-          </div>
-        </form>
-        <div className='link-open'>
-          <Link to='/home'>Back to My Dashboard</Link>
-        </div>
+  const handleSubmit = props.handleSubmit;
+  return (
+    <div className='create-div'>
+      <div>
+        <h2 className='create-header'>Create an Event</h2>
       </div>
+      <form className='create-form' onSubmit={handleSubmit}>
+        <div className='create-field'>
+          <label htmlFor='title'>Event Name</label>
+          <input type='title' name='title' className='input' />
+        </div>
+        <div className='input-field'>
+          <label htmlFor='password'>Password</label>
+          <input type='password' name='password' className='input' />
+        </div>
+        <div>
+          <button className='submit-button' type='submit'>Create</button>
+        </div>
+      </form>
+      <div className='link-open'>
+        <Link to='/home'>Back to My Dashboard</Link>
+      </div>
+    </div>
 
-    )
-  }
+  )
+
 }
 const mapStateToProps = (state, ownProps) => {
 
