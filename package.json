@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "npm run build-watch & npm run start-server",
     "start-server": "nodemon --watch server main.js -e html,js,css",
-    "start": "node main",
+    "start": "node main.js",
     "build-watch": "webpack -w",
     "deploy": "script/deploy",
     "heroku-token": "script/encrypt-heroku-auth-token",
