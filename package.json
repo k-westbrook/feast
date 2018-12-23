@@ -9,7 +9,6 @@
     "start": "npm run start:dev",
     "build-watch": "webpack -w",
     "deploy": "script/deploy",
-    "heroku-token": "script/encrypt-heroku-auth-token",
     "seed": "node seed.js"
   },
   "keywords": [
@@ -23,6 +22,7 @@
     "chalk": "^2.4.1",
     "express": "^4.14.0",
     "express-session": "^1.15.6",
+    "nodemon": "^1.18.9",
     "pg": "^7.4.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
