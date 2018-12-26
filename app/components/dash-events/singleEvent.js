@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getEvent, getGuests, getItems } from '../../reducers/eventReducer'
+import { getEvent, getGuests, getItems, removeGuest, removeItem } from '../../reducers/eventReducer'
 import { getMe } from '../../reducers/userReducer'
 import { Link, Redirect } from 'react-router-dom'
 import GuestItem from './guestItem'
 import BroughtItem from './BroughtItem'
+
 
 class SingleEventView extends React.Component {
 
@@ -24,7 +25,7 @@ class SingleEventView extends React.Component {
     this.setState({ load: true });
   }
   render() {
-
+    console.log(this.props.items, "WATCHING THE ITEMS")
     if (!containsUser(this.props.guests, this.props.user)) {
       return (
         <div>
@@ -50,13 +51,13 @@ class SingleEventView extends React.Component {
     return (
       <div>
         {(this.state.load) ?
-          <div class='single-event-view'>
+          <div className='single-event-view'>
             <h1>{this.props.event.title}</h1>
             <div>
               <h2>Guests Attending</h2>
               <ul>
                 {this.props.guests.map(guest => {
-                  return <GuestItem guest={guest} key={guest.id} />
+                  return <GuestItem guest={guest} key={guest.id} event={this.props.event} user={this.props.user} removeGuest={this.props.removeGuest} />
                 })}
               </ul>
             </div>
@@ -65,7 +66,7 @@ class SingleEventView extends React.Component {
               {(this.props.items.length > 0 && this.props.items[0] !== null) ?
                 <ul>
                   {this.props.items.map(item => {
-                    return <BroughtItem item={item} key={item.id} />
+                    return <BroughtItem item={item} key={item.id} user={this.props.user} removeItem={this.props.removeItem} />
                   })}
                 </ul>
                 :
@@ -120,6 +121,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getItems(eventId) {
 
       dispatch(getItems(eventId));
+    },
+    removeGuest(eventId, userId) {
+      dispatch(removeGuest(eventId, userId));
+    },
+    removeItem(itemId) {
+      dispatch(removeItem(itemId));
     },
     getMe() {
 

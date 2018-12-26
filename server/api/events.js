@@ -157,4 +157,62 @@ router.post('/addItem/:eventId', async (req, res, next) => {
   }
 
 })
+
+
+//REMOVE GUEST FROM A PARTICUALR EVENT
+router.delete('/removeGuest/:eventId/:userId', async (req, res, next) => {
+  try {
+
+    const eventId = req.params.eventId;
+    const userId = req.params.userId;
+
+    const userFound = await User.findOne({
+      where: {
+        id: userId
+      }
+    });
+
+    const eventFound = await Event.findById(eventId)
+
+    await eventFound.removeUser(userFound);
+
+    res.json(userFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+}
+)
+
+
+
+//REMOVE ITEM FROM A PARTICUALR EVENT
+router.delete('/removeItem/:itemId', async (req, res, next) => {
+  try {
+
+    const itemId = req.params.itemId;
+    const itemFound = await Item.findOne({
+      where: {
+        id: itemId
+      }
+    })
+    await Item.destroy({
+      where: {
+        id: itemId
+      }
+    });
+
+
+
+    res.json(itemFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+}
+)
+
+
 module.exports = router;

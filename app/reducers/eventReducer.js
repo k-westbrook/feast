@@ -9,7 +9,9 @@ const GET_GUESTS_FROM_SERVER = "GET_GUESTS_FROM_SERVER";
 const GET_ITEMS_FROM_SERVER = "GET_ITEMS_FROM_SERVER";
 const ADD_EVENT = "ADD_EVENT";
 const ADD_GUEST = "ADD_GUEST";
+const REMOVE_GUEST = "REMOVE_GUEST";
 const ADD_ITEM = "ADD_ITEM"
+const REMOVE_ITEM = "REMOVE_ITEM"
 
 //ACTION CREATOR
 const getAllEventsForUser = (events) => ({
@@ -47,6 +49,15 @@ const addedGuestFromServer = (guest) => ({
 
 const addedItemFromServer = (item) => ({
   type: ADD_ITEM,
+  item
+})
+
+const deletedGuestFromServer = (guest) => ({
+  type: REMOVE_GUEST,
+  guest
+})
+const deletedItemFromServer = (item) => ({
+  type: REMOVE_ITEM,
   item
 })
 
@@ -106,7 +117,6 @@ export const getItems = (eventId) => {
 
     const res = await axios.get(`/api/events/items/${eventId}`);
     const data = res.data;
-    console.log(data, "REDUCER")
     dispatch(getItemsFromServer(data));
   }
 }
@@ -130,6 +140,26 @@ export const addItem = (item, eventId) => {
   }
 }
 
+export const removeGuest = (eventId, userId) => {
+  return async (dispatch) => {
+
+    const res = await axios.delete(`/api/events/removeGuest/${eventId}/${userId}`);
+
+    const data = res.data;
+    console.log(data, "DATA")
+    dispatch(deletedGuestFromServer(data));
+  }
+}
+
+export const removeItem = (itemId) => {
+  return async (dispatch) => {
+
+    const res = await axios.delete(`/api/events/removeItem/${itemId}`);
+    const data = res.data;
+
+    dispatch(deletedItemFromServer(data));
+  }
+}
 
 const eventReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -147,6 +177,30 @@ const eventReducer = (state = initialState, action) => {
       return { ...state, guests: [...state.guests, action.guest] }
     case ADD_ITEM:
       return { ...state, items: [...state.items, action.item] }
+    case REMOVE_GUEST: {
+
+      let newGuestArr = [];
+      for (let i = 0; i < state.guests.length; i++) {
+        console.log(action.guest, "ACTION")
+        if (state.guests[i].id !== action.guest.id) {
+          newGuestArr.push(state.guests[i]);
+        }
+      }
+      return { ...state, guests: newGuestArr }
+    }
+    case REMOVE_ITEM: {
+
+      let newItemArr = [];
+      for (let i = 0; i < state.items.length; i++) {
+        console.log(state.items[i])
+        if (state.items[i].id !== action.item.id) {
+          console.log(action.item.id)
+          newItemArr.push(state.items[i]);
+        }
+      }
+
+      return { ...state, items: newItemArr }
+    }
     default:
       return state
   }
