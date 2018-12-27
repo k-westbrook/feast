@@ -7,6 +7,9 @@ import { Link, Redirect } from 'react-router-dom'
 
 class SignUpForm extends React.Component {
 
+  componentDidMount() {
+    this.props.getMe();
+  }
   render() {
     this.props.getMe();
 
@@ -20,19 +23,19 @@ class SignUpForm extends React.Component {
             <div>
               <div className='input-field'>
                 <label htmlFor='firstName'>First Name</label>
-                <input type='firstName' name='firstName' className='input' />
+                <input type='firstName' name='firstName' className='input' required />
               </div>
               <div className='input-field'>
                 <label htmlFor='lastName'>Last Name</label>
-                <input type='lastName' name='lastName' className='input' />
+                <input type='lastName' name='lastName' className='input' required />
               </div>
               <div className='input-field'>
                 <label htmlFor='email'>Email</label>
-                <input type='email' name='email' className='input' />
+                <input type='email' name='email' className='input' required />
               </div>
               <div className='input-field'>
                 <label htmlFor='email'>Password</label>
-                <input type='password' name='password' className='input' />
+                <input type='password' name='password' className='input' required />
               </div>
               <div >
                 <button className='submit-button' type='submit'>Sign Up</button>
