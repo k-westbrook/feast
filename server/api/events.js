@@ -206,6 +206,16 @@ router.delete('/removeGuest/:eventId/:userId', async (req, res, next) => {
 
     await eventFound.removeUser(userFound);
 
+    //also remove any items that they are assigned to
+
+    await Item.destroy({
+      where:
+      {
+        eventId: eventId,
+        userId: userId
+      }
+    })
+
     res.json(userFound);
 
   } catch (err) {

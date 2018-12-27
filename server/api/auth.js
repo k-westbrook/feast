@@ -61,9 +61,27 @@ router.get('/me', async (req, res, next) => {
 
 router.post('/addUser', async (req, res, next) => {
   try {
-    const newUser = await User.create(req.body);
-    req.session.userId = newUser.id;
-    res.json(newUser);
+    const reqBody = req.body;
+
+    const checkNewUser = await User.findOrCreate({
+      where:
+        { email: reqBody.email },
+      defaults: {
+        firstName: reqBody.firstName,
+        lastName: reqBody.lastName,
+        password: reqBody.password
+      }
+    }
+    );
+
+    if (!checkNewUser[1]) {
+      res.json({ taken: true })
+    } else {
+      const newUser = checkNewUser[0];
+      req.session.userId = newUser.id;
+
+      res.json(newUser);
+    }
   } catch (err) {
 
     next(err);

@@ -196,7 +196,7 @@ const eventReducer = (state = initialState, action) => {
 
       let newGuestArr = [];
       for (let i = 0; i < state.guests.length; i++) {
-        console.log(action.guest, "ACTION")
+
         if (state.guests[i].id !== action.guest.id) {
           newGuestArr.push(state.guests[i]);
         }

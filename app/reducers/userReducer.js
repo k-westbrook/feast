@@ -65,7 +65,11 @@ export const addUser = (user) => {
 
     const res = await axios.post('/api/auth/addUser', user);
     const data = res.data;
-    dispatch(addUserToServer(data));
+    if (!data.taken) {
+      dispatch(addUserToServer(data));
+    } else {
+      return false;
+    }
   }
 }
 

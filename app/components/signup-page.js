@@ -71,8 +71,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const lastName = evt.target.lastName.value;
 
 
-      dispatch(addUser({ firstName, lastName, email, password })).then(() => {
-        history.push('/home');
+      dispatch(addUser({ firstName, lastName, email, password })).then((obj) => {
+
+        if (obj) {
+          history.push('/home');
+        } else {
+          history.push('/signup')
+
+        }
       })
 
 

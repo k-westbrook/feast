@@ -8,7 +8,8 @@ import { getMe } from '../../reducers/userReducer'
 
 const UpdateItem = (props) => {
 
-  const item = props.items[0];
+  const item = props.location.query.item;
+
 
 
   const handleSubmit = props.handleSubmit;
@@ -59,7 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const quantity = evt.target.quantity.value;
       const eventId = ownProps.match.params.eventId;
       const itemId = ownProps.match.params.itemId;
-      console.log("FRONT END", itemId, eventId)
+
       dispatch(updateItem({ name, quantity }, eventId, itemId)).then(() => {
         history.push(`/event/${eventId}`);
       })
