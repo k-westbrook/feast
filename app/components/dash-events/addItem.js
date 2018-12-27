@@ -9,9 +9,7 @@ import { Link } from 'react-router-dom'
 
 const AddItem = (props) => {
 
-
-
-
+  const eventId = props.match.params.eventId;
   const handleSubmit = props.handleSubmit;
   return (
 
@@ -32,7 +30,9 @@ const AddItem = (props) => {
           <button className='submit-button' type='submit'>Sign Up</button>
         </div>
       </form>
-
+      <div className='link-open'>
+        <Link to={{ pathname: `/event/${eventId}` }}>Back to Event</Link>
+      </div>
     </div>
   )
 

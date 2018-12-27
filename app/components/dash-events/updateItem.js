@@ -33,6 +33,9 @@ const UpdateItem = (props) => {
           <button className='submit-button' type='submit'>Update Now</button>
         </div>
       </form>
+      <div className='link-open'>
+        <Link to='/home'>Back to My Dashboard</Link>
+      </div>
 
     </div>
   )

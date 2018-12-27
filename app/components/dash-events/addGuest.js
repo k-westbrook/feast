@@ -31,6 +31,9 @@ const AddGuest = (props) => {
         </div>
 
       </form>
+      <div className='link-open'>
+        <Link to={{ pathname: `/event/${props.event}` }}>Back to Event</Link>
+      </div>
     </div>
 
   )
