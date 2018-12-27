@@ -8,6 +8,7 @@ import ConnectedCreateEvent from './create-events/create-event.js'
 import ConnectedSingleEventView from './dash-events/singleEvent';
 import ConnecteAddGuest from './dash-events/addGuest'
 import ConnecteAddItem from './dash-events/addItem'
+import ConnectedUpdateItem from './dash-events/updateItem'
 
 const Dashboard = (props) => {
   const { user, handleClick } = props
@@ -25,6 +26,7 @@ const Dashboard = (props) => {
             <Route exact path='/event/:eventId' render={(routeProps) => <ConnectedSingleEventView {...routeProps} />} />
             <Route path='/event/addGuest/:eventId' render={(routeProps) => <ConnecteAddGuest {...routeProps} />} />
             <Route path='/event/addItem/:eventId' render={(routeProps) => <ConnecteAddItem {...routeProps} />} />
+            <Route path='/event/updateItem/:eventId/:itemId' render={(routeProps) => <ConnectedUpdateItem {...routeProps} />} />
           </main>
         </Switch>
       </Router>

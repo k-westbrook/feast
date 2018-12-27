@@ -66,7 +66,7 @@ class SingleEventView extends React.Component {
               {(this.props.items.length > 0 && this.props.items[0] !== null) ?
                 <ul>
                   {this.props.items.map(item => {
-                    return <BroughtItem item={item} key={item.id} user={this.props.user} removeItem={this.props.removeItem} />
+                    return <BroughtItem item={item} key={item.id} user={this.props.user} removeItem={this.props.removeItem} event={this.props.event} />
                   })}
                 </ul>
                 :

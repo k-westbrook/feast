@@ -158,6 +158,36 @@ router.post('/addItem/:eventId', async (req, res, next) => {
 
 })
 
+//PUT TO UPDATE AN ITEM WITH A PARTICULAR GUEST AND EVENT
+router.put('/updateItem/:eventId/:itemId', async (req, res, next) => {
+  try {
+    const reqBody = req.body;
+    const itemId = req.params.itemId;
+
+
+    await Item.update(
+      {
+        name: reqBody.name,
+        quantity: reqBody.quantity
+      },
+      {
+        where:
+        {
+          id: itemId
+        }
+      })
+    const itemFound = await Item.findById(itemId);
+
+
+    console.log(itemFound, "WHAT RETURNED")
+    res.json(itemFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 
 //REMOVE GUEST FROM A PARTICUALR EVENT
 router.delete('/removeGuest/:eventId/:userId', async (req, res, next) => {
