@@ -38,7 +38,11 @@ export const login = (formData) => {
 
     const res = await axios.put('/api/auth/login/', formData);
     const data = res.data;
-    dispatch(getLoggedInUser(data));
+    if (data.incorrect) {
+      return true;
+    } else {
+      dispatch(getLoggedInUser(data));
+    }
   }
 }
 
@@ -68,7 +72,7 @@ export const addUser = (user) => {
     if (!data.taken) {
       dispatch(addUserToServer(data));
     } else {
-      return false;
+      return true;
     }
   }
 }

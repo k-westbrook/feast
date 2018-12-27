@@ -255,4 +255,80 @@ router.delete('/removeItem/:itemId', async (req, res, next) => {
 )
 
 
+
+//REMOVE GUEST FROM A PARTICUALR EVENT
+router.delete('/removeGuest/:eventId/:userId', async (req, res, next) => {
+  try {
+
+    const eventId = req.params.eventId;
+    const userId = req.params.userId;
+
+    const userFound = await User.findOne({
+      where: {
+        id: userId
+      }
+    });
+
+    const eventFound = await Event.findById(eventId)
+
+    await eventFound.removeUser(userFound);
+
+    //also remove any items that they are assigned to
+
+    await Item.destroy({
+      where:
+      {
+        eventId: eventId,
+        userId: userId
+      }
+    })
+
+    res.json(userFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+}
+)
+
+
+
+//REMOVE EVENT
+router.delete('/removeEvent/:eventId', async (req, res, next) => {
+  try {
+
+    const eventId = req.params.eventId;
+    const eventFound = await Event.findOne({
+      where: {
+        id: eventId
+      }
+    })
+    await Item.destroy({
+      where: {
+        eventId: eventId
+      }
+    })
+    await Event.destroy({
+      where: {
+        id: eventId
+      }
+    });
+    await Item.destroy({
+      where: {
+        eventId: eventId
+      }
+    })
+
+
+    res.json(eventFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+}
+)
+
+
 module.exports = router;

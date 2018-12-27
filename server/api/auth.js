@@ -20,7 +20,8 @@ router.put('/login', async (req, res, next) => {
 
       res.json(foundOne);
     } else {
-      res.status(401).json("Incorrect Email or Password");
+
+      res.json({ incorrect: true });
     }
   } catch (err) {
 

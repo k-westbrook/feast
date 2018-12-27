@@ -71,13 +71,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const lastName = evt.target.lastName.value;
 
 
-      dispatch(addUser({ firstName, lastName, email, password })).then((obj) => {
+      dispatch(addUser({ firstName, lastName, email, password })).then((result) => {
 
-        if (obj) {
-          history.push('/home');
+        if (result) {
+          alert('Email taken, please pick another email')
+
         } else {
-          history.push('/signup')
-
+          history.push('/home');
         }
       })
 

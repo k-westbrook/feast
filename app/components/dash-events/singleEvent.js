@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getEvent, getGuests, getItems, removeGuest, removeItem } from '../../reducers/eventReducer'
+import { getEvent, getGuests, getItems, removeGuest, removeItem, removeEvent } from '../../reducers/eventReducer'
 import { getMe } from '../../reducers/userReducer'
 import { Link, Redirect } from 'react-router-dom'
 import GuestItem from './guestItem'
@@ -83,6 +83,13 @@ class SingleEventView extends React.Component {
                 </Link>
               </div>
             </div>
+            {(this.props.user.id === this.props.event.admin) ?
+              <div>
+                <button type='button' className='submit-button' onClick={() => { this.props.removeEvent(this.props.event.id) }}>Delete Event</button>
+              </div>
+              :
+              <div></div>
+            }
           </div>
           :
           <h2>loading</h2>
@@ -127,6 +134,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     removeItem(itemId) {
       dispatch(removeItem(itemId));
+    },
+    removeEvent(eventId) {
+      dispatch(removeEvent(eventId)).then(() => {
+        alert('yes')
+        ownProps.history.push('/home')
+      })
     },
     getMe() {
 

@@ -8,11 +8,12 @@ const GET_EVENT_FROM_SERVER = "GET_EVENT_FROM_SERVER";
 const GET_GUESTS_FROM_SERVER = "GET_GUESTS_FROM_SERVER";
 const GET_ITEMS_FROM_SERVER = "GET_ITEMS_FROM_SERVER";
 const ADD_EVENT = "ADD_EVENT";
+const REMOVE_EVENT = "REMOVE_EVENT";
 const ADD_GUEST = "ADD_GUEST";
 const REMOVE_GUEST = "REMOVE_GUEST";
-const ADD_ITEM = "ADD_ITEM"
-const REMOVE_ITEM = "REMOVE_ITEM"
-const UPDATE_ITEM = "UPDATE_ITEM"
+const ADD_ITEM = "ADD_ITEM";
+const REMOVE_ITEM = "REMOVE_ITEM";
+const UPDATE_ITEM = "UPDATE_ITEM";
 
 //ACTION CREATOR
 const getAllEventsForUser = (events) => ({
@@ -65,6 +66,11 @@ const deletedItemFromServer = (item) => ({
 const updatedItemFromServer = (item) => ({
   type: UPDATE_ITEM,
   item
+})
+
+const deletedEventFromServer = (event) => ({
+  type: REMOVE_EVENT,
+  event
 })
 
 //INITIAL STATE
@@ -176,6 +182,16 @@ export const removeItem = (itemId) => {
   }
 }
 
+export const removeEvent = (eventId) => {
+  return async (dispatch) => {
+
+    const res = await axios.delete(`/api/events/removeEvent/${eventId}`);
+    const data = res.data;
+
+    dispatch(deletedEventFromServer(data));
+  }
+}
+
 const eventReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_EVENT_FROM_SERVER:
@@ -217,7 +233,7 @@ const eventReducer = (state = initialState, action) => {
       return { ...state, items: newItemArr }
     }
     case UPDATE_ITEM: {
-      console.log(action.item, "REDUCER")
+
       let newItemArr = [];
       for (let i = 0; i < state.items.length; i++) {
         if (state.items[i].id !== action.item.id) {
@@ -229,6 +245,17 @@ const eventReducer = (state = initialState, action) => {
 
       return { ...state, items: newItemArr }
     }
+    case REMOVE_EVENT:
+      {
+        let newSelectedEvent = {};
+        let newEventArr = [];
+        for (let i = 0; i < state.events.length; i++) {
+          if (state.events[i] !== action.event) {
+            newEventArr.push(state.events[i]);
+          }
+        }
+        return { ...state, selectedEvent: newSelectedEvent, events: newEventArr }
+      }
     default:
       return state
   }
