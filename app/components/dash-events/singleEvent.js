@@ -85,7 +85,14 @@ class SingleEventView extends React.Component {
             </div>
             {(this.props.user.id === this.props.event.admin) ?
               <div>
-                <button type='button' className='submit-button' onClick={() => { this.props.removeEvent(this.props.event.id) }}>Delete Event</button>
+                <div>
+                  <button type='button' className='submit-button' onClick={() => { this.props.removeEvent(this.props.event.id) }}>Delete Event</button>
+                </div>
+                <div>
+                  <Link to={{ pathname: `/event/editEvent/${this.props.event.id}`, query: { event: this.props.event } }} key={this.props.event.id} >
+                    <button type='button' className='submit-button'> Edit Event</button>
+                  </Link>
+                </div>
               </div>
               :
               <div></div>
@@ -137,7 +144,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     removeEvent(eventId) {
       dispatch(removeEvent(eventId)).then(() => {
-        alert('yes')
+
         ownProps.history.push('/home')
       })
     },

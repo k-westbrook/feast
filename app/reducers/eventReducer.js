@@ -14,6 +14,7 @@ const REMOVE_GUEST = "REMOVE_GUEST";
 const ADD_ITEM = "ADD_ITEM";
 const REMOVE_ITEM = "REMOVE_ITEM";
 const UPDATE_ITEM = "UPDATE_ITEM";
+const UPDATE_EVENT = "UPDATE_EVENT";
 
 //ACTION CREATOR
 const getAllEventsForUser = (events) => ({
@@ -70,6 +71,11 @@ const updatedItemFromServer = (item) => ({
 
 const deletedEventFromServer = (event) => ({
   type: REMOVE_EVENT,
+  event
+})
+
+const updatedEventFromServer = (event) => ({
+  type: UPDATE_EVENT,
   event
 })
 
@@ -161,6 +167,14 @@ export const updateItem = (item, eventId, itemId) => {
   }
 }
 
+export const updateEvent = (event, eventId) => {
+  return async (dispatch) => {
+
+    const res = await axios.put(`/api/events/updateEvent/${eventId}`, event);
+    const data = res.data;
+    dispatch(updatedEventFromServer(data));
+  }
+}
 
 export const removeGuest = (eventId, userId) => {
   return async (dispatch) => {
@@ -244,6 +258,19 @@ const eventReducer = (state = initialState, action) => {
       }
 
       return { ...state, items: newItemArr }
+    }
+    case UPDATE_EVENT: {
+
+      let newEventArr = [];
+      for (let i = 0; i < state.events.length; i++) {
+        if (state.events[i].id !== action.event.id) {
+          newEventArr.push(state.events[i]);
+        } else {
+          newEventArr.push(action.event);
+        }
+      }
+
+      return { ...state, events: newEventArr }
     }
     case REMOVE_EVENT:
       {

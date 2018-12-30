@@ -189,6 +189,37 @@ router.put('/updateItem/:eventId/:itemId', async (req, res, next) => {
 
 })
 
+//PUT TO UPDATE AN EVENT
+router.put('/updateEvent/:eventId/', async (req, res, next) => {
+  try {
+    const reqBody = req.body;
+    const eventId = req.params.eventId;
+
+
+    await Event.update(
+      {
+        title: reqBody.title,
+        password: reqBody.password
+      },
+      {
+        where:
+        {
+          id: eventId
+        }
+      })
+    const eventFound = await Event.findById(eventId);
+
+
+
+    res.json(eventFound);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
+
 //REMOVE GUEST FROM A PARTICUALR EVENT
 router.delete('/removeGuest/:eventId/:userId', async (req, res, next) => {
   try {
