@@ -8,7 +8,7 @@ import ConnectedCreateEvent from './create-events/create-event.js'
 import ConnectedSingleEventView from './dash-events/singleEvent';
 import ConnecteAddGuest from './dash-events/addGuest'
 import ConnecteAddItem from './dash-events/addItem'
-import NotFound from './extra-page/notFound';
+import About from './extra-page/about';
 import ConnectedMyAccount from './extra-page/myAccount';
 import ConnectedUpdateAccount from './extra-page/updateAccount'
 
@@ -36,8 +36,13 @@ const Root = (props) => {
                 </div>
               </div>
               :
-              <div className='nav-link'>
-                <Link to='/signup'>Sign up</Link>
+              <div className='nav-box'>
+                <div className='nav-link'>
+                  <Link to='/signup'>Sign up</Link>
+                </div>
+                <div className='nav-link'>
+                  <Link to='/about'>About</Link>
+                </div>
               </div>
             }
 
@@ -46,6 +51,7 @@ const Root = (props) => {
             <main>
               <Route exact path='/' component={ConnectedLoginForm} />
               <Route exact path='/home' component={ConnectedDashboard} />
+              <Route exact path='/about' component={About} />
               <Route exact path='/myAccount' render={(routeProps) => <ConnectedMyAccount {...routeProps} />} />
               <Route exact path='/updateAccount' render={(routeProps) => <ConnectedUpdateAccount {...routeProps} />} />
               <Route exact path='/signup' component={ConnectedSignUpForm} />
