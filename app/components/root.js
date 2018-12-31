@@ -27,12 +27,16 @@ const Root = (props) => {
               Feast
         </div>
             {(user.id) ?
-              <div>
-                <Link to='/home'>My Dashboard</Link>
-                <Link to='/myAccount'>My Account</Link>
+              <div className='nav-box'>
+                <div className='nav-link'>
+                  <Link to='/home'>My Dashboard</Link>
+                </div>
+                <div className='nav-link'>
+                  <Link to='/myAccount'>My Account</Link>
+                </div>
               </div>
               :
-              <div>
+              <div className='nav-link'>
                 <Link to='/signup'>Sign up</Link>
               </div>
             }

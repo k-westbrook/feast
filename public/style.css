@@ -109,3 +109,11 @@ main {
   border-color: white;
 
 }
+
+.nav-box{
+  display: flex;
+}
+.nav-link{
+  margin: 3vh;
+  color: white;
+}

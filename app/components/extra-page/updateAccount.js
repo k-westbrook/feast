@@ -19,6 +19,10 @@ const UpdateAccount = (props) => {
           <label htmlFor='lastName'>Last Name</label>
           <input type='text' name='lastName' className='input' defaultValue={props.user.lastName} />
         </div>
+        <div className='input-field'>
+          <label htmlFor='photo'>Photo</label>
+          <input type='file' name='photo' className='input' />
+        </div>
         <div>
           <button className='submit-button' type='submit'>Update Now</button>
         </div>
@@ -65,8 +69,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
+      const photo = evt.target.photo.value;
 
-      dispatch(updateUser({ firstName, lastName })).then(() => {
+      dispatch(updateUser({ firstName, lastName, photo })).then(() => {
         history.push(`/myAccount`);
       })
 

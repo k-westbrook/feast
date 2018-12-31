@@ -29,11 +29,11 @@ router.put('/updateUser', async (req, res, next) => {
   try {
     const reqBody = req.body;
     const userId = req.session.userId;
-    console.log(`the user is: ${reqBody.firstName} and the userID for the session is ${userId}`)
     await User.update(
       {
         firstName: reqBody.firstName,
-        lastName: reqBody.lastName
+        lastName: reqBody.lastName,
+        photo: reqBody.photo
       },
       {
         where:
