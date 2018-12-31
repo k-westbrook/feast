@@ -9,7 +9,7 @@ import ConnectedSingleEventView from './dash-events/singleEvent';
 import ConnecteAddGuest from './dash-events/addGuest'
 import ConnecteAddItem from './dash-events/addItem'
 import NotFound from './extra-page/notFound';
-
+import ConnectedMyAccount from './extra-page/myAccount';
 
 const Root = (props) => {
 
@@ -41,6 +41,7 @@ const Root = (props) => {
             <main>
               <Route exact path='/' component={ConnectedLoginForm} />
               <Route exact path='/home' component={ConnectedDashboard} />
+              <Route exact path='/myAccount' render={(routeProps) => <ConnectedMyAccount {...routeProps} />} />
               <Route exact path='/signup' component={ConnectedSignUpForm} />
               <Route exact path='/createEvent' render={(routeProps) => <ConnectedCreateEvent {...routeProps} />} />
               {/* <Route exact path='/event/:eventId' render={(routeProps) => <ConnectedSingleEventView {...routeProps} />} />

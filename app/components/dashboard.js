@@ -11,6 +11,7 @@ import ConnecteAddItem from './dash-events/addItem'
 import ConnectedUpdateItem from './dash-events/updateItem'
 import ConnectedEditEvent from './dash-events/editEvent'
 
+
 const Dashboard = (props) => {
   const { user, handleClick } = props
 
@@ -29,6 +30,7 @@ const Dashboard = (props) => {
             <Route path='/event/addItem/:eventId' render={(routeProps) => <ConnecteAddItem {...routeProps} />} />
             <Route path='/event/updateItem/:eventId/:itemId' render={(routeProps) => <ConnectedUpdateItem {...routeProps} />} />
             <Route path='/event/editEvent/:eventId/' render={(routeProps) => <ConnectedEditEvent {...routeProps} />} />
+
           </main>
         </Switch>
       </Router>
