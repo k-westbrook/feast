@@ -27,12 +27,13 @@ router.get('/:userId/items', async (req, res, next) => {
 //PUT REQUESTS FOR ITEMS FOR A PARTICULAR USER
 router.put('/updateUser', async (req, res, next) => {
   try {
-    const reqBody = req.body
+    const reqBody = req.body;
     const userId = req.session.userId;
+    console.log(`the user is: ${reqBody.firstName} and the userID for the session is ${userId}`)
     await User.update(
       {
-        name: reqBody.firstName,
-        quantity: reqBody.lastName
+        firstName: reqBody.firstName,
+        lastName: reqBody.lastName
       },
       {
         where:

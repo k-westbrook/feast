@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
-import { logout } from '../../reducers/userReducer'
+import { logout, updateUser } from '../../reducers/userReducer'
+
 
 const UpdateAccount = (props) => {
   console.log(props, 'props')
@@ -58,7 +59,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(logout()).then(() => {
         history.push('/');
       })
+    },
+    handleSubmit(evt) {
+      evt.preventDefault()
+
+      const firstName = evt.target.firstName.value;
+      const lastName = evt.target.lastName.value;
+
+      dispatch(updateUser({ firstName, lastName })).then(() => {
+        history.push(`/myAccount`);
+      })
+
+
     }
+
+
+
   }
 }
 
