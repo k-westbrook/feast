@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { updateItem } from '../../reducers/eventReducer'
 import { getMe } from '../../reducers/userReducer'
+import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
 
 
 
