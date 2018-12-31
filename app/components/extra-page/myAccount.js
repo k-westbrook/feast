@@ -6,7 +6,7 @@ import { logout } from '../../reducers/userReducer'
 const MyAccount = (props) => {
 
   return (
-    <div>
+    <div className='main-dashboard'>
       <h2>Account Information</h2>
       <div>
         <p>Name:{props.user.firstName} {props.user.lastName} </p>

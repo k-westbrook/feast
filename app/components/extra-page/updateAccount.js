@@ -7,7 +7,7 @@ import { logout, updateUser } from '../../reducers/userReducer'
 const UpdateAccount = (props) => {
   console.log(props, 'props')
   return (
-    <div>
+    <div className='create-div'>
       <form className='login-form' onSubmit={props.handleSubmit}>
 
         <h2>Account Information</h2>
