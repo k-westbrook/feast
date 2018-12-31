@@ -6,6 +6,7 @@ const GET_LOGGED_IN_USER_FROM_SERVER = "GET_LOGGED_IN_USER_FROM_SERVER";
 const ADD_USER_TO_SERVER = "ADD_USER_TO_SERVER";
 const GET_ITEMS_FROM_SERVER = 'GET_ITEMS_FROM_SERVER'
 const UPDATE_USER = 'UPDATE_USER'
+const DELETE_USER = 'DELETE_USER'
 
 
 //ACTION CREATOR
@@ -28,6 +29,11 @@ const getUpdatedUserFromServer = (user) => ({
 
   type: UPDATE_USER,
   user
+})
+
+const getDeletedUserFromServer = (user) => ({
+  type: DELETE_USER,
+  userReducer
 })
 
 //INITIAL STATE
@@ -99,6 +105,13 @@ export const updateUser = (user) => {
     dispatch(getUpdatedUserFromServer(data));
   }
 }
+export const deleteUser = () => {
+  return async (dispatch) => {
+    const res = await axios.delete('/api/users/deleteUser');
+    const data = res.data;
+    dispatch(getDeletedUserFromServer(data));
+  }
+}
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -110,7 +123,8 @@ const userReducer = (state = initialState, action) => {
       return { ...state, items: action.items }
     case UPDATE_USER:
       return { ...state, selectedUser: action.user }
-
+    case DELETE_USER:
+      return { ...state, selectedUser: {} }
     default:
       return state
   }

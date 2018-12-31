@@ -53,4 +53,44 @@ router.put('/updateUser', async (req, res, next) => {
   }
 
 })
+
+
+//DELETE REQUEST FOR USER
+
+router.delete('/deleteUser', async (req, res, next) => {
+  try {
+    const userId = req.session.userId;
+
+    const userDeleted = await User.findById(userId);
+    await Item.destroy({
+      where: {
+        userId: userId
+      }
+    })
+    await User.destroy({
+      where: {
+        id: userId
+      }
+    }
+    )
+    const eventDeleted = await Event.findAll({
+      where: {
+        admin: userId
+      }
+    })
+    await Event.destroy({
+      where: {
+        admin: userId
+      }
+    })
+
+    req.session.userId = null;
+    res.json({ userDeleted, eventDeleted });
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 module.exports = router;

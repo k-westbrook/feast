@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
-import { logout } from '../../reducers/userReducer'
+import { logout, deleteUser } from '../../reducers/userReducer'
 
 const MyAccount = (props) => {
 
@@ -20,6 +20,10 @@ const MyAccount = (props) => {
         <Link to='/home'>Back to My Dashboard</Link>
       </div>
       <div>
+        <div>
+          <button className='submit-button' type='submit' onClick={props.deleteUser}>Delete Account</button>
+          <p className='blurb'>If you delete your account, then you will be removed from any events. If you are the sole admin for any events, those events will be deleted as well.</p>
+        </div>
         <button className='submit-button' type='submit' onClick={props.handleClick}>Logout</button>
       </div>
     </div>
@@ -48,6 +52,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
       dispatch(logout()).then(() => {
         history.push('/');
+      })
+    },
+    deleteUser() {
+      dispatch(deleteUser()).then(() => {
+        history.push('/')
       })
     }
   }
