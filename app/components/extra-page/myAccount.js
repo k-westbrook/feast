@@ -3,30 +3,29 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from 'react-router-dom'
 import { logout } from '../../reducers/userReducer'
 
-class MyAccount extends React.Component {
+const MyAccount = (props) => {
 
-
-
-  render(props) {
-
-    return (
+  return (
+    <div>
+      <h2>Account Information</h2>
       <div>
-        <h2>Account Information</h2>
-        <div>
-          <p>Name:{this.props.user.firstName} {this.props.user.lastName} </p>
-          <p>Email: {this.props.user.email}</p>
-        </div>
-        <div className='link-open'>
-          <Link to='/home'>Back to My Dashboard</Link>
-        </div>
-        <div>
-          <button className='submit-button' type='submit' onClick={this.props.handleClick}>Logout</button>
-        </div>
+        <p>Name:{props.user.firstName} {props.user.lastName} </p>
+        <p>Email: {props.user.email}</p>
       </div>
+      <div className='link-open'>
+        <Link to='/updateAccount'>Update My Account</Link>
+      </div>
+      <div className='link-open'>
+        <Link to='/home'>Back to My Dashboard</Link>
+      </div>
+      <div>
+        <button className='submit-button' type='submit' onClick={props.handleClick}>Logout</button>
+      </div>
+    </div>
 
 
-    )
-  }
+  )
+
 
 
 

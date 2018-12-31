@@ -25,7 +25,7 @@ class SingleEventView extends React.Component {
     this.setState({ load: true });
   }
   render() {
-
+    console.log(this.state.load, "CHECK THE LOADING")
     if (!containsUser(this.props.guests, this.props.user)) {
       return (
         <div>

@@ -113,7 +113,7 @@ router.put('/addGuest/:eventId', async (req, res, next) => {
   try {
     const reqBody = req.body;
     const eventId = req.params.eventId;
-    console.log(reqBody, "BODY")
+
     const userFound = await User.findOne({
       where: {
         email: reqBody.email

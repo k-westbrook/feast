@@ -10,6 +10,7 @@ import ConnecteAddGuest from './dash-events/addGuest'
 import ConnecteAddItem from './dash-events/addItem'
 import ConnectedUpdateItem from './dash-events/updateItem'
 import ConnectedEditEvent from './dash-events/editEvent'
+import ConnectedUpdateAccount from './extra-page/updateAccount'
 
 
 const Dashboard = (props) => {
@@ -30,7 +31,8 @@ const Dashboard = (props) => {
             <Route path='/event/addItem/:eventId' render={(routeProps) => <ConnecteAddItem {...routeProps} />} />
             <Route path='/event/updateItem/:eventId/:itemId' render={(routeProps) => <ConnectedUpdateItem {...routeProps} />} />
             <Route path='/event/editEvent/:eventId/' render={(routeProps) => <ConnectedEditEvent {...routeProps} />} />
-
+            <Route exact path='/myAccount' render={(routeProps) => <ConnectedMyAccount {...routeProps} />} />
+            <Route exact path='/updateAccount' render={(routeProps) => <ConnectedUpdateAccount {...routeProps} />} />
           </main>
         </Switch>
       </Router>

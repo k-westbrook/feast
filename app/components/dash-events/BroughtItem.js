@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 const BroughtItem = (props) => {
-
+  console.log(props, "PROPS OF THE BROUGHT ITEM")
   return (
     <ul>
       {(props.item.userId === props.user.id) ?

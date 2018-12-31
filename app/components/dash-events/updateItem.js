@@ -22,11 +22,11 @@ const UpdateItem = (props) => {
         <div>
           <div className='input-field'>
             <label htmlFor='name'>Name of Item</label>
-            <input type='name' name='name' className='input' defaultValue={item.name} />
+            <input type='text' name='name' className='input' defaultValue={item.name} />
           </div>
           <div className='input-field'>
             <label htmlFor='quantity'>quantity</label>
-            <input type='quantity' name='quantity' className='input' defaultValue={item.quantity} />
+            <input type='text' name='quantity' className='input' defaultValue={item.quantity} />
           </div>
 
         </div>

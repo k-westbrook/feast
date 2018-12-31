@@ -23,4 +23,33 @@ router.get('/:userId/items', async (req, res, next) => {
   }
 
 })
+
+//PUT REQUESTS FOR ITEMS FOR A PARTICULAR USER
+router.put('/updateUser', async (req, res, next) => {
+  try {
+    const reqBody = req.body
+    const userId = req.session.userId;
+    await User.update(
+      {
+        name: reqBody.firstName,
+        quantity: reqBody.lastName
+      },
+      {
+        where:
+        {
+          id: userId
+        }
+
+      })
+
+    const updatedUser = await User.findById(userId);
+
+    res.json(updatedUser);
+
+  } catch (err) {
+
+    next(err);
+  }
+
+})
 module.exports = router;
