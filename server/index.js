@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const app = express()
 const session = require('express-session');
 // logging middleware
-app.use(morgan)
+app.use(morgan('dev'))
 
 // body parsing middleware
 app.use(express.json())
