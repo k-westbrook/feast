@@ -8,5 +8,5 @@ db.sync() // if you update your db schemas, make sure you drop the tables first 
   .then(() => {
 
     console.log('db synced')
-    app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+    app.listen(process.env.PORT || PORT, () => console.log(`server listening on port ${PORT}`))
   })
