@@ -21,7 +21,7 @@ const User = db.define('user', {
   },
   photo: {
     type: Sequelize.STRING,
-    defaultValue: 'public/defaultPhoto.png'
+    defaultValue: 'https://images-na.ssl-images-amazon.com/images/I/51zLZbEVSTL._SX425_.jpg'
   }
 })
 

@@ -21,7 +21,7 @@ const UpdateAccount = (props) => {
         </div>
         <div className='input-field'>
           <label htmlFor='photo'>Photo</label>
-          <input type='file' name='photo' className='input' />
+          <input type='text' name='photo' className='input' />
         </div>
         <div>
           <button className='submit-button' type='submit'>Update Now</button>

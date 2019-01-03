@@ -11,7 +11,7 @@ const MyAccount = (props) => {
       <div>
         <p>Name:{props.user.firstName} {props.user.lastName} </p>
         <p>Email: {props.user.email}</p>
-        <img src={props.user.photo} />
+        <img className='profile-pic' src={props.user.photo} />
       </div>
       <div className='link-open'>
         <Link to='/updateAccount'>Update My Account</Link>

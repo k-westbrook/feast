@@ -126,3 +126,8 @@ main {
   border-style: solid;
   padding: 1em;
 }
+
+.profile-pic{
+  height: 15vh;
+  width: 15vh;
+}
